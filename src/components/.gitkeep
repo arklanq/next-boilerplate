@@ -1,0 +1,1 @@
+React components organized by atomic design: atoms (basic UI), molecules (simple composites), organisms (complex sections), layouts, and shells (page templates).

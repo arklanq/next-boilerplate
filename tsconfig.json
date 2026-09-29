@@ -1,0 +1,66 @@
+{
+  "compilerOptions": {
+    // Environment Settings
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "target": "ES2025",
+    "lib": ["ES2025", "DOM", "DOM.Iterable"],
+
+    // Outputs
+    "noEmit": true,
+
+    // Customized Typechecking Options
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noUncheckedSideEffectImports": true,
+    "types": ["node", "react", "react-dom", "assert", "debug"],
+
+    // Style Options
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": false,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+
+    // Performance
+    "moduleDetection": "force",
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "incremental": true,
+    "tsBuildInfoFile": "node_modules/.cache/typescript/tsconfig.tsbuildinfo",
+
+    // Features & tweaks
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "allowArbitraryExtensions": true,
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "esModuleInterop": true,
+
+    // Paths
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
+    // Plugins
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "*.ts",
+    "*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "tests/**/*.ts",
+    "tests/**/*.tsx",
+    "scripts/**/*.ts",
+    "@types/**/*.d.ts",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
+}

@@ -1,0 +1,43 @@
+# Miscellaneous
+/.idea
+/.vscode
+.DS_Store
+
+# Packages
+/node_modules
+
+# testing
+/coverage
+/.vitest-reports
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# debug
+npm-debug.log*
+
+# env files (can opt-in for committing if needed)
+/.env*
+!/.env.example
+
+# vercel
+/.vercel
+
+# typescript
+next-env.d.ts
+
+# AI
+.agents/*
+!.agents/skills/
+.agents/skills/*
+!.agents/skills/app-quality-audit/
+!.agents/skills/boilerplate-update/
+!.agents/skills/identity/
+.claude
+
+# Boilerplate update scratch plan (boilerplate-update skill)
+/BOILERPLATE_UPDATE.md

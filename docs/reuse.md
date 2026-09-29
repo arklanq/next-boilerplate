@@ -1,0 +1,30 @@
+# Reuse guide
+
+Use the existing modules as starting points. The homepage is only a placeholder, and directories containing `.gitkeep` are extension points rather than implemented features.
+
+## UI
+
+- [`src/app/`](../src/app/) contains the active App Router entry points and global styles. [`src/app/layout.tsx`](../src/app/layout.tsx) is the root layout currently used by Next.js.
+  - [`src/components/layouts/root-layout/`](../src/components/layouts/root-layout/) offers a default layout with `next-themes`, `NuqsAdapter`, TanStack Query, toast notifications, and [`RootShell`](../src/components/shells/root-shell/root-shell.tsx).
+- [`src/config/`](../src/config/) contains font definitions, query client defaults, and toast options.
+- `import { cn } from "cn"` merges utility classes.
+- [`src/hooks/use-boolean/`](../src/hooks/use-boolean/) provides boolean state helpers.
+- [`src/ad-hocs/`](../src/ad-hocs/) contains component wrappers for default props and grouped components.
+
+## API and shared data
+
+- [`src/server/api/`](../src/server/api/) provides a typed middleware chain. A chain needs a final handler that returns a `Response`.
+- [`errorInterceptor`](../src/server/api/middlewares/error-interceptor.ts) converts application errors into structured HTTP responses.
+- [`src/exceptions/http/`](../src/exceptions/http/) contains HTTP exception classes.
+- [`src/types/api/responses.ts`](../src/types/api/responses.ts) defines success and error response shapes.
+- [`src/utils/pagination/`](../src/utils/pagination/) contains schemas for numeric inputs and URL query strings, a pagination metadata builder, and per-field text truncation.
+- [`src/types/`](../src/types/) contains reusable Next.js and TypeScript types.
+- [`src/utils/unimplemented-proxy/`](../src/utils/unimplemented-proxy/) provides a proxy that throws until an implementation is supplied.
+
+## Extension points
+
+- [`src/components/atoms/`](../src/components/atoms/), [`molecules/`](../src/components/molecules/), and [`organisms/`](../src/components/organisms/) are available for new UI components.
+- [`src/queries/`](../src/queries/), [`mutations/`](../src/mutations/), [`services/`](../src/services/), and [`models/`](../src/models/) are available for feature data and domain logic.
+- [`src/contexts/`](../src/contexts/), [`libs/`](../src/libs/), and [`assets/`](../src/assets/) are available when the feature needs them.
+
+There are no application API routes, services, persistence layer, or MCP transport yet. Add code to these directories only when its responsibility is needed.
