@@ -17,6 +17,8 @@ Use the existing modules as starting points. The homepage is only a placeholder,
 - [`errorInterceptor`](../src/server/api/middlewares/error-interceptor.ts) converts application errors into structured HTTP responses.
 - [`src/exceptions/http/`](../src/exceptions/http/) contains HTTP exception classes.
 - [`src/types/api/responses.ts`](../src/types/api/responses.ts) defines success and error response shapes.
+- Build every API route with `ApiMiddlewareBuilder` and apply `errorInterceptor` first, so all errors share one response format. Handlers report errors by throwing an HTTP exception instead of building an error response.
+- Implement shared request checks, such as origin or authentication checks, as middlewares in [`src/server/api/middlewares/`](../src/server/api/middlewares/) rather than as helpers called inside handlers.
 - [`src/utils/pagination/`](../src/utils/pagination/) contains schemas for numeric inputs and URL query strings, a pagination metadata builder, and per-field text truncation.
 - [`src/types/`](../src/types/) contains reusable Next.js and TypeScript types.
 - [`src/utils/unimplemented-proxy/`](../src/utils/unimplemented-proxy/) provides a proxy that throws until an implementation is supplied.
