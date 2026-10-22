@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   quality:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
@@ -37,7 +37,7 @@ jobs:
         run: bun run build
 
   unit-tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
@@ -63,7 +63,7 @@ jobs:
           retention-days: 1
 
   e2e-tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
@@ -83,7 +83,7 @@ jobs:
         run: bun run test:e2e
 
   coverage-report:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     if: ${{ !cancelled() }}
     needs: [unit-tests]
     steps:
@@ -124,7 +124,7 @@ jobs:
           file-coverage-mode: none
 
   gate:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     if: always()
     needs: [quality, unit-tests, e2e-tests, coverage-report]
     steps:
