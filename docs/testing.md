@@ -5,6 +5,8 @@ Unit tests run with Bun's built-in test runner (`bun test`). [`bunfig.toml`](../
 - `tests/unit/**/*.{test,spec}.tsx` run with a [happy-dom](https://github.com/capricorn86/happy-dom) DOM, React Testing Library and the `@testing-library/jest-dom` matchers.
 - `tests/unit/**/*.{test,spec}.ts` run without a DOM and keep Bun's native `fetch`, `Request` and `Response`, which happy-dom would replace.
 
+happy-dom is chosen over jsdom on purpose: it ships `matchMedia`, `<dialog>`, `IntersectionObserver`, `ResizeObserver` and popovers, which UI libraries and `next-themes` need and jsdom lacks, and it runs DOM tests about 2.5× faster.
+
 The unit scripts pass `--parallel`, which runs files in worker processes and implies `--isolate`, so every file gets a fresh global and the setup decides per file whether to register the DOM. Use the scripts, or add `--parallel` or `--isolate` yourself: a plain `bun test` over several files runs the setup once, so every file gets the first file's environment and the no-DOM tests fail.
 
 React Testing Library unmounts rendered components after every test by itself, because Bun exposes `afterEach` globally. Do not add `afterEach(cleanup)` to test files.
