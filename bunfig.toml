@@ -6,14 +6,3 @@ bun = true
 [test]
 root = "tests/unit"
 preload = ["./tests/unit/setup.ts"]
-coverageSkipTestFiles = true
-coveragePathIgnorePatterns = [
-  "tests/**",
-  "src/**/*.d.ts",
-  "src/app/**/layout.tsx",
-  "src/app/**/loading.tsx",
-  "src/app/**/not-found.tsx",
-  "src/app/**/error.tsx",
-  "src/components/ui/**",
-]
-coverageReporter = ["text", "lcov"]

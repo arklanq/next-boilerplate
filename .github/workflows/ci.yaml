@@ -50,26 +50,8 @@ jobs:
       - name: Install dependencies
         run: bun ci
 
-      - name: Run unit tests with coverage
-        # `shell: bash` adds pipefail, so a test failure still fails the step through `tee`
-        shell: bash
-        run: bun run test:unit --coverage --bail=1 2>&1 | tee unit-tests.log
-
-      - name: Write coverage to Step Summary
-        if: ${{ !cancelled() && hashFiles('unit-tests.log') != '' }}
-        run: |
-          echo "### Unit test coverage" >> "$GITHUB_STEP_SUMMARY"
-          echo '```' >> "$GITHUB_STEP_SUMMARY"
-          awk '/^-+\|/ { print; if (++n == 3) exit; next } n' unit-tests.log >> "$GITHUB_STEP_SUMMARY"
-          echo '```' >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Upload coverage artifact
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
-        with:
-          name: coverage
-          path: coverage/
-          retention-days: 5
+      - name: Run unit tests
+        run: bun run test:unit --bail=1
 
   e2e-tests:
     runs-on: ubuntu-latest
