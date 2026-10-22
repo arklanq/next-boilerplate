@@ -35,9 +35,7 @@ const eslintConfig = defineConfig([
       "import-x/resolver": {
         typescript: true,
         node: true
-      },
-      // Bun's built-in modules (bun:test, ...) have no file to resolve
-      "import-x/core-modules": ["bun:test"]
+      }
     }
   },
   // Automatically sort import/export statements
@@ -61,6 +59,8 @@ const eslintConfig = defineConfig([
       // Intentionally disabled alongside TypeScript's `noFallthroughCasesInSwitch` option
       "no-fallthrough": "off",
       "default-case": "off",
+      // Bun's built-in modules (bun:test, ...) have no file to resolve
+      "import-x/no-unresolved": ["error", { ignore: ["^bun:"] }],
       // Enforce the use of top-level import type qualifier when TS --verbatimModuleSyntax option is enabled
       "@typescript-eslint/no-import-type-side-effects": "error",
       // Allow unused vars with leading underscore
