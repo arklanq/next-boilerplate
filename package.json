@@ -22,8 +22,8 @@
     "test:e2e": "playwright test",
     "test:watch": "bun test --parallel --watch",
     "clear-cache": "rimraf node_modules/.cache .next .swc",
-    "check-updates": "ncu --configFileName ncu.config.js",
-    "force-updates": "ncu --configFileName ncu.config.js -u"
+    "updates:check": "ncu --configFileName ncu.config.js",
+    "updates:force": "ncu --configFileName ncu.config.js -u"
   },
   "dependencies": {
     "@hookform/resolvers": "^6.0.0",
