@@ -116,7 +116,7 @@ const eslintConfig = defineConfig([
       }
     }
   },
-  // Turns off all styling rules that might conflict with Prettier.
+  // Turns off all styling rules that might conflict with the formatter (`bun fmt`, Prettier-compatible).
   eslintConfigPrettier
 ]);
 
