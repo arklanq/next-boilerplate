@@ -1,55 +1,16 @@
-// Extends Vitest's `expect` with @testing-library/jest-dom matchers
-// (toBeInTheDocument, toHaveClass, ...).
-import "@testing-library/jest-dom/vitest";
+// Preloaded by `bun test` (see bunfig.toml). With `--isolate` it runs once per test file
+// in a fresh global, so only `*.tsx` tests get a DOM; `*.ts` tests keep Bun's native
+// globals (fetch, Request, Response, ...), which happy-dom would replace.
+import { GlobalRegistrator } from "@happy-dom/global-registrator";
+import { expect } from "bun:test";
 
-// Map-backed Storage polyfill. Node 22+ exposes a stub `globalThis.localStorage`
-// that shadows jsdom's working implementation; this restores DOM-compatible
-// behaviour for both production code paths and tests.
-function createStorage(): Storage {
-  const store = new Map<string, string>();
-  return {
-    get length(): number {
-      return store.size;
-    },
-    clear(): void {
-      store.clear();
-    },
-    getItem(key: string): string | null {
-      return store.has(key) ? (store.get(key) ?? null) : null;
-    },
-    key(index: number): string | null {
-      return Array.from(store.keys())[index] ?? null;
-    },
-    removeItem(key: string): void {
-      store.delete(key);
-    },
-    setItem(key: string, value: string): void {
-      store.set(key, String(value));
-    }
-  };
+if (Bun.main.endsWith(".tsx")) {
+  // Provides window, document, localStorage, ResizeObserver, scrolling, ...
+  GlobalRegistrator.register();
+
+  // Extends `expect` with @testing-library/jest-dom matchers (toBeInTheDocument, toHaveClass, ...).
+  // Imported after registering because @testing-library/dom reads `document` on load.
+  // The types also declare a `default` export that the ES module doesn't have, so leave it out.
+  const { default: _, ...matchers } = await import("@testing-library/jest-dom/matchers");
+  expect.extend(matchers);
 }
-
-// Installs the polyfill on both `globalThis` and `window`.
-function installStorage(name: "localStorage" | "sessionStorage"): void {
-  const storage = createStorage();
-  Object.defineProperty(globalThis, name, { configurable: true, value: storage });
-  if (typeof window !== "undefined") {
-    Object.defineProperty(window, name, { configurable: true, value: storage });
-  }
-}
-
-installStorage("localStorage");
-installStorage("sessionStorage");
-
-// jsdom does not implement ResizeObserver — stub it so components that observe
-// element resizes don't crash during tests.
-globalThis.ResizeObserver = class ResizeObserver {
-  public observe(): void {}
-  public unobserve(): void {}
-  public disconnect(): void {}
-};
-
-// jsdom does not implement element scrolling — stub these so virtualized lists
-// and scroll-on-mount logic don't crash.
-Element.prototype.scrollIntoView = function () {};
-Element.prototype.scrollTo = function () {};

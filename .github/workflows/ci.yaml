@@ -22,7 +22,7 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2.2.0
         with:
-          bun-version: 1.4.2
+          bun-version: 1.4.3
 
       - name: Install dependencies
         run: bun ci
@@ -45,22 +45,31 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2.2.0
         with:
-          bun-version: 1.4.2
+          bun-version: 1.4.3
 
       - name: Install dependencies
         run: bun ci
 
       - name: Run unit tests with coverage
-        run: bun run test:unit --coverage --bail=1 --reporter=default --reporter=blob --outputFile.blob=.vitest-reports/unit.json
+        # `shell: bash` adds pipefail, so a test failure still fails the step through `tee`
+        shell: bash
+        run: bun run test:unit --coverage --bail=1 2>&1 | tee unit-tests.log
 
-      - name: Upload Vitest report
+      - name: Write coverage to Step Summary
+        if: ${{ !cancelled() && hashFiles('unit-tests.log') != '' }}
+        run: |
+          echo "### Unit test coverage" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          awk '/^-+\|/ { print; if (++n == 3) exit; next } n' unit-tests.log >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload coverage artifact
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
         with:
-          name: vitest-report-unit
-          path: .vitest-reports/*
-          include-hidden-files: true
-          retention-days: 1
+          name: coverage
+          path: coverage/
+          retention-days: 5
 
   e2e-tests:
     runs-on: ubuntu-latest
@@ -71,62 +80,21 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2.2.0
         with:
-          bun-version: 1.4.2
+          bun-version: 1.4.3
 
       - name: Install dependencies
         run: bun ci
 
       - name: Install Chromium
-        run: bunx playwright install --with-deps chromium
+        run: bunx --bun playwright install --with-deps chromium
 
       - name: Run browser test
         run: bun run test:e2e
 
-  coverage-report:
-    runs-on: ubuntu-latest
-    if: ${{ !cancelled() }}
-    needs: [unit-tests]
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2.2.0
-        with:
-          bun-version: 1.4.2
-
-      - name: Install dependencies
-        run: bun ci
-
-      - name: Download Vitest reports
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c  # v8.0.1
-        with:
-          path: .vitest-reports
-          pattern: vitest-report-*
-          merge-multiple: true
-
-      - name: Merge test and coverage reports
-        run: bun --bun vitest --merge-reports=.vitest-reports --coverage
-
-      - name: Upload coverage artifact
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
-        with:
-          name: coverage
-          path: coverage/
-          retention-days: 5
-
-      - name: Write coverage to Step Summary
-        if: ${{ always() && hashFiles('coverage/coverage-summary.json') != '' }}
-        uses: davelosert/vitest-coverage-report-action@c4bbc33a89b7ace0e63d35f1f7d4bcee31155a73  # v2.13.0
-        with:
-          comment-on: none
-          file-coverage-mode: none
-
   gate:
     runs-on: ubuntu-latest
     if: always()
-    needs: [quality, unit-tests, e2e-tests, coverage-report]
+    needs: [quality, unit-tests, e2e-tests]
     steps:
       - name: Write CI manifest to Step Summary
         env:
@@ -158,11 +126,9 @@ jobs:
           echo "| quality | \`${{ needs.quality.result }}\` |" >> "$GITHUB_STEP_SUMMARY"
           echo "| unit-tests | \`${{ needs.unit-tests.result }}\` |" >> "$GITHUB_STEP_SUMMARY"
           echo "| e2e-tests | \`${{ needs.e2e-tests.result }}\` |" >> "$GITHUB_STEP_SUMMARY"
-          echo "| coverage-report | \`${{ needs.coverage-report.result }}\` |" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Verify required jobs
         run: |
           test "${{ needs.quality.result }}" = "success"
           test "${{ needs.unit-tests.result }}" = "success"
           test "${{ needs.e2e-tests.result }}" = "success"
-          test "${{ needs.coverage-report.result }}" = "success"

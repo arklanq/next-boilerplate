@@ -35,7 +35,9 @@ const eslintConfig = defineConfig([
       "import-x/resolver": {
         typescript: true,
         node: true
-      }
+      },
+      // Bun's built-in modules (bun:test, ...) have no file to resolve
+      "import-x/core-modules": ["bun:test"]
     }
   },
   // Automatically sort import/export statements

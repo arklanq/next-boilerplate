@@ -13,7 +13,7 @@ The starter does not include a database, authentication, or an MCP server.
 
 ## Run
 
-The package declares Node.js 26 or newer. The commands below use Bun.
+Bun 1.4.3 or newer is the only runtime: it installs packages and runs the scripts, the tools and the production server. Node.js is not needed. Update with `bun upgrade`.
 
 ```bash
 bun ci
@@ -24,7 +24,7 @@ Open <http://localhost:3000>. Replace the placeholder in [`src/app/page.tsx`](sr
 
 ## Check
 
-Install Chromium once with `bunx playwright install chromium` before running the tests.
+Type checking (`bun check`) and unit tests (`bun test`) use Bun's built-in tools. Linting and formatting use ESLint and Prettier, as Bun has no linter or formatter. Install Chromium once with `bunx --bun playwright install chromium` before running the tests.
 
 ```bash
 bun run type:check

@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "bun:test";
 import { DEFAULT_TRUNCATION_LIMIT, truncateField, TRUNCATION_MARKER } from "@/utils/pagination/truncate-field";
 
 describe("truncateField", () => {
