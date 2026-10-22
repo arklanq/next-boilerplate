@@ -1,4 +1,4 @@
-// Preloaded by `bun test` (see bunfig.toml). With `--isolate` it runs once per test file
+// Preloaded by `bun test` (see bunfig.toml). With `--parallel` (or `--isolate`) it runs once per test file
 // in a fresh global, so only `*.tsx` tests get a DOM; `*.ts` tests keep Bun's native
 // globals (fetch, Request, Response, ...), which happy-dom would replace.
 import { GlobalRegistrator } from "@happy-dom/global-registrator";

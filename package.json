@@ -18,9 +18,9 @@
     "type:check": "bun check",
     "test": "bun run test:unit && bun run test:e2e",
     "test:ci": "bun run test:unit --bail=1 && bun run test:e2e",
-    "test:unit": "bun test --isolate",
+    "test:unit": "bun test --parallel",
     "test:e2e": "playwright test",
-    "test:watch": "bun test --isolate --watch",
+    "test:watch": "bun test --parallel --watch",
     "clear-cache": "rimraf node_modules/.cache .next .swc",
     "check-updates": "ncu --configFileName ncu.config.js",
     "force-updates": "ncu --configFileName ncu.config.js -u"
