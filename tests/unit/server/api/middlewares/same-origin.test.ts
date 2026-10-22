@@ -1,5 +1,5 @@
+import { afterEach, beforeEach, describe, expect, it, mock } from "bun:test";
 import { NextRequest } from "next/server";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { appBaseUrl } from "@/config/app-base-url/app-base-url";
 import { ApiMiddlewareBuilder } from "@/server/api/api-middleware-builder";
 import { errorInterceptor } from "@/server/api/middlewares/error-interceptor";
@@ -7,15 +7,20 @@ import { sameOrigin } from "@/server/api/middlewares/same-origin";
 
 const origin = "http://localhost:3000";
 const context = { params: Promise.resolve({}) };
-const handler = vi.fn(async () => new Response(null, { status: 204 }));
+const handler = mock(async () => new Response(null, { status: 204 }));
 const route = new ApiMiddlewareBuilder().apply(errorInterceptor).apply(sameOrigin).apply(handler).build();
 const post = (headers: Record<string, string>) => new NextRequest(`${origin}/api`, { method: "POST", headers });
 
+const initialBaseUrl = process.env.APP_BASE_URL;
+
 beforeEach(() => {
   handler.mockClear();
-  vi.stubEnv("APP_BASE_URL", origin);
+  process.env.APP_BASE_URL = origin;
 });
-afterEach(() => vi.unstubAllEnvs());
+afterEach(() => {
+  if (initialBaseUrl === undefined) delete process.env.APP_BASE_URL;
+  else process.env.APP_BASE_URL = initialBaseUrl;
+});
 
 describe("same-origin middleware", () => {
   it.each<Record<string, string>>([{}, { origin: "https://foreign.example" }, { origin: "http://127.0.0.1:3000" }])(
@@ -36,14 +41,14 @@ describe("same-origin middleware", () => {
 
 describe("appBaseUrl", () => {
   it("defaults to the Next.js development origin", () => {
-    vi.stubEnv("APP_BASE_URL", undefined);
+    delete process.env.APP_BASE_URL;
     expect(appBaseUrl()).toBe("http://localhost:3000");
   });
 
   it.each(["ftp://example.com", "https://user:secret@example.com", "http://example.com"])(
     "rejects an unsafe origin %j",
     (value) => {
-      vi.stubEnv("APP_BASE_URL", value);
+      process.env.APP_BASE_URL = value;
       expect(() => appBaseUrl()).toThrow();
     }
   );

@@ -7,7 +7,7 @@ export function withDefaultProps<P extends object>(
 ): ComponentType<P> {
   const newComponent: ComponentType<P> = (props: P) => <WrappedComponent {...defaultProps} {...props} />;
 
-  newComponent.displayName = `withDefaultProps(${getDisplayName(newComponent)})`;
+  newComponent.displayName = `withDefaultProps(${getDisplayName(WrappedComponent)})`;
 
   return newComponent;
 }

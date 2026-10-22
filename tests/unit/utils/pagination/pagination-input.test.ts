@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "bun:test";
 import { BadRequestException } from "@/exceptions/http/bad-request-exception";
 import {
   DEFAULT_MAX_RECORDS_PER_PAGE,

@@ -1,0 +1,8 @@
+# Bun is the only runtime: `bun run` executes package binaries with `#!/usr/bin/env node`
+# shebangs (next, eslint, prettier, playwright, ...) under Bun instead of Node.js.
+[run]
+bun = true
+
+[test]
+root = "tests/unit"
+preload = ["./tests/unit/setup.ts"]

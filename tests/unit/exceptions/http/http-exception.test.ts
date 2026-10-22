@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "bun:test";
 import { HttpException } from "@/exceptions/http/http-exception";
 import { getHttpStatus } from "@/utils/http-status/get-http-status";
 

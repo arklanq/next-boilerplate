@@ -1,14 +1,18 @@
 # Testing
 
-[`vitest.config.ts`](../vitest.config.ts) defines two unit test projects:
+Unit tests run with Bun's built-in test runner (`bun test`). [`bunfig.toml`](../bunfig.toml) limits it to `tests/unit` and preloads [`tests/unit/setup.ts`](../tests/unit/setup.ts). Tests import their API (`describe`, `it`, `expect`, `mock`, ...) from `bun:test`.
 
-- `tests/unit/**/*.{test,spec}.tsx` runs in jsdom with React Testing Library and the polyfills in [`tests/unit/setup.ts`](../tests/unit/setup.ts).
-- `tests/unit/**/*.{test,spec}.ts` runs in Vitest's `node` environment without DOM setup.
+- `tests/unit/**/*.{test,spec}.tsx` run with a [happy-dom](https://github.com/capricorn86/happy-dom) DOM, React Testing Library and the `@testing-library/jest-dom` matchers.
+- `tests/unit/**/*.{test,spec}.ts` run without a DOM and keep Bun's native `fetch`, `Request` and `Response`, which happy-dom would replace.
 
-Put focused tests near the matching feature area. The [homepage unit test](../tests/unit/app/home-page.test.tsx) renders a component in jsdom. The [pagination tests](../tests/unit/utils/pagination/pagination-input.test.ts) show the `node` environment pattern.
+happy-dom is chosen over jsdom on purpose: it ships `matchMedia`, `<dialog>`, `IntersectionObserver`, `ResizeObserver` and popovers, which UI libraries and `next-themes` need and jsdom lacks, and it runs DOM tests about 2.5× faster.
 
-The [homepage browser test](../tests/e2e/home-page.spec.ts) uses Playwright in Chromium to check the production build, visible heading, and browser errors. Install the browser once with `bunx playwright install chromium`, then run `bun run test:e2e`. [`playwright.config.ts`](../playwright.config.ts) builds and starts Next.js for the test.
+The unit scripts pass `--parallel`, which runs files in worker processes and implies `--isolate`, so every file gets a fresh global and the setup decides per file whether to register the DOM. Use the scripts, or add `--parallel` or `--isolate` yourself: a plain `bun test` over several files runs the setup once, so every file gets the first file's environment and the no-DOM tests fail.
 
-Vitest runs under Bun for both projects. The `node` environment selects Node-compatible globals, not the process runtime. `jsdom` currently uses 29.1.1 and stays on major 29 because version 30 fails to initialize under Bun 1.4.2.
+React Testing Library unmounts rendered components after every test by itself, because Bun exposes `afterEach` globally. Do not add `afterEach(cleanup)` to test files.
 
-Run `bun run test` for the unit and browser tests. `bun run test:ci` also runs both, with coverage for the unit tests. Use `bun run test:unit` or `bun run test:e2e` to run either group separately. The other quality commands are listed in [README.md](../README.md).
+Put focused tests near the matching feature area. The [homepage unit test](../tests/unit/app/home-page.test.tsx) renders a component with the DOM. The [pagination tests](../tests/unit/utils/pagination/pagination-input.test.ts) show the no-DOM pattern.
+
+The [homepage browser test](../tests/e2e/home-page.spec.ts) uses Playwright in Chromium to check the production build, visible heading, and browser errors. Install the browser once with `bunx --bun playwright install chromium`, then run `bun run test:e2e`. [`playwright.config.ts`](../playwright.config.ts) builds and starts Next.js for the test.
+
+Run `bun run test` for the unit and browser tests. `bun run test:ci` also runs both and stops the unit tests at the first failure. Use `bun run test:unit`, `bun run test:watch` or `bun run test:e2e` to run a group separately. The other quality commands are listed in [README.md](../README.md).

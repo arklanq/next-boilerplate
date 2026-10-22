@@ -14,7 +14,7 @@
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "noUncheckedSideEffectImports": true,
-    "types": ["node", "react", "react-dom", "assert", "debug"],
+    "types": ["bun", "react", "react-dom", "assert", "debug"],
 
     // Style Options
     "noImplicitReturns": true,

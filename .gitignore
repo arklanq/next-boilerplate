@@ -6,10 +6,6 @@
 # Packages
 /node_modules
 
-# testing
-/coverage
-/.vitest-reports
-
 # next.js
 /.next/
 /out/
