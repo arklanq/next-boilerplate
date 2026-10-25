@@ -1,1 +1,3 @@
-Business / domain logic and service layer functions.
+# Services
+
+Business logic that queries, mutations and API routes share, free of React and HTTP details.

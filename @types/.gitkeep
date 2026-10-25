@@ -1,1 +1,5 @@
-Custom TypeScript type declaration files for extending third-party library types.
+# Ambient types
+
+Global `.d.ts` declarations: `process.env` keys (`env.d.ts`), CSS and media imports, and the jest-dom matchers for `bun:test`.
+
+Add every new environment variable to `env.d.ts`.

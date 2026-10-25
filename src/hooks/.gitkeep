@@ -1,1 +1,3 @@
-Custom React hooks for reusable component logic.
+# Hooks
+
+Reusable React hooks, one kebab-case folder per hook (`use-boolean/use-boolean.ts`). Check `@react-hookz/web` before writing a generic one.

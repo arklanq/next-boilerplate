@@ -1,1 +1,4 @@
-Custom exception classes for error handling (BadRequestException, NotFoundException, HttpException).
+# Exceptions
+
+- `http/`: `HttpException` subclasses with a status code; throw them from API handlers and `errorInterceptor` turns them into responses.
+- `system/`: status-free failures such as timeouts, aborted requests and unimplemented code.

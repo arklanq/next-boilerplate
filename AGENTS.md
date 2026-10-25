@@ -7,6 +7,8 @@ Read [README.md](README.md) for the project's purpose and commands. Open only th
 
 Before adding a helper, component, or folder, inspect the existing equivalent. Keep changes scoped to the requested feature and update the relevant guide if its documented behavior changes.
 
+A directory's `.gitkeep` is a Markdown note on what the directory holds and its rules. Read it when you explore the repository or work in that directory, and keep it current when the directory's role changes.
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 # This is NOT the Next.js you know

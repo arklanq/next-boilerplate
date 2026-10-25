@@ -1,1 +1,3 @@
-React components organized by atomic design: atoms (basic UI), molecules (simple composites), organisms (complex sections), layouts, and shells (page templates).
+# Components
+
+React components by atomic design: `atoms/`, `molecules/`, `organisms/`, then `layouts/` and `shells/` for page structure. One kebab-case folder per component (`root-shell/root-shell.tsx`). shadcn adds primitives to `atoms/` and blocks to `organisms/` (`components.json`).

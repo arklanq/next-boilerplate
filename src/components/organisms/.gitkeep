@@ -1,3 +1,3 @@
 # Organisms
 
-Complex components composed of molecules and atoms. These are large, feature-rich sections of the UI (headers, footers, forms, lists, map areas, etc.).
+Feature-sized sections built from molecules and atoms: headers, forms, lists. shadcn blocks land here.

@@ -1,6 +1,6 @@
 # Reuse guide
 
-Use the existing modules as starting points. The homepage is only a placeholder, and directories containing `.gitkeep` are extension points rather than implemented features.
+Use the existing modules as starting points. The homepage is only a placeholder. Every directory's `.gitkeep` note describes what belongs there.
 
 ## UI
 

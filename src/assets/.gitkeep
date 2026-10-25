@@ -1,1 +1,3 @@
-Static assets including images, icons, fonts, and other media files.
+# Assets
+
+Images, icons and fonts imported from code, so the bundler can optimise and hash them. Files served by URL go to `public/`.

@@ -1,1 +1,3 @@
-Higher-order components (HOCs) for React component composition and enhancement.
+# Higher-order components
+
+Component wrappers: `withDefaultProps` presets props, `withGroup` attaches subcomponents (`Card.Header`). One folder per wrapper, named after it.

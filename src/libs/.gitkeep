@@ -1,1 +1,3 @@
-In-house, 1st-party libraries.
+# Libraries
+
+First-party libraries with their own API, independent of features. shadcn's `lib` alias points here.

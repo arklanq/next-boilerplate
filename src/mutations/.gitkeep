@@ -1,1 +1,3 @@
-TanStack Query mutation functions (mutationOptions) for create, update, and delete operations.
+# Mutations
+
+TanStack Query `mutationOptions` factories for creating, updating and deleting data, one folder per domain.

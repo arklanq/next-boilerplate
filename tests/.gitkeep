@@ -1,0 +1,6 @@
+# Tests
+
+- `unit/`: Bun tests that mirror the `src/` layout; `.tsx` files get a happy-dom DOM, `.ts` files do not (`bun run test:unit`).
+- `e2e/`: Playwright against the production build (`bun run test:e2e`).
+
+Conventions are in [docs/testing.md](../docs/testing.md).
