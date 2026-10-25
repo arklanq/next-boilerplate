@@ -1,1 +1,3 @@
-TanStack Query functions (queryOptions) for data fetching and reading from data sources.
+# Queries
+
+TanStack Query `queryOptions` factories for reading data, one folder per domain. Components call them through `useQuery` or `useSuspenseQuery`.

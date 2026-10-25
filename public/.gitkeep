@@ -1,1 +1,3 @@
-Public static assets served directly by Next.js (images, favicons, fonts).
+# Public
+
+Static files Next.js serves from the site root unchanged, such as favicons, `robots.txt` and images referenced by URL. Assets imported in code go to `src/assets/`.

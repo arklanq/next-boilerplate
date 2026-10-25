@@ -1,1 +1,3 @@
-Application configuration files and constants.
+# Config
+
+App-wide settings: fonts, the TanStack Query client, toast options and `appBaseUrl`. Read environment variables through a typed module here, not `process.env` in features.

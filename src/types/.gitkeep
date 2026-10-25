@@ -1,1 +1,3 @@
-Shared TypeScript type definitions and interfaces.
+# Types
+
+Shared types: API response shapes (`api/`), Next.js route and error props (`next/`), and generic helpers (`utility-types/`). Domain types go to `src/models/`.

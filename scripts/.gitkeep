@@ -1,1 +1,3 @@
-Build scripts and automation tools.
+# Scripts
+
+Bun scripts that never ship with the app. Import `load-next-env.ts` first in any script that reads `process.env`, so `.env*` files load the way Next.js loads them.

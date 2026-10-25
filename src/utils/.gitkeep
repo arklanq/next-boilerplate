@@ -1,1 +1,3 @@
-Utility functions and helpers organized by domain.
+# Utils
+
+Small helpers, one kebab-case folder per topic: HTTP status lookup, pagination schemas, the unimplemented proxy. Unit tests mirror them in `tests/unit/utils/`.
