@@ -1,3 +1,3 @@
 # Server
 
-Server-only code. `api/` holds the typed middleware chain for API routes: apply `errorInterceptor` first and `sameOrigin` on every `POST`, `PUT`, `PATCH` and `DELETE` route. Mark new server modules with `import "server-only"`.
+Server-only code. `api/` holds the typed middleware chain for API routes: apply `errorInterceptor` first and `sameOrigin` on every `POST`, `PUT`, `PATCH` and `DELETE` route. Never import it from client components.
