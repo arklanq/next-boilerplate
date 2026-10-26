@@ -27,13 +27,10 @@ npm-debug.log*
 next-env.d.ts
 
 # AI
-.agents/*
-!.agents/skills/
-.agents/skills/*
-!.agents/skills/app-quality-audit/
-!.agents/skills/boilerplate-update/
-!.agents/skills/identity/
+.agents
 .claude
+.codex
+.codegraph
 
 # Boilerplate update scratch plan (boilerplate-update skill)
 /BOILERPLATE_UPDATE.md
