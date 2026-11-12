@@ -6,7 +6,7 @@ Projects created from this template drift away from it, so a plain merge of a ne
 
 [`.template-version`](../.template-version) holds the tag of the template release the code is based on, for example `v1.1.0`, on a single line. A derived project inherits it and changes it only after applying a release's hints, so it always shows where the next update starts. Create projects from a release tag rather than from `main`, because `main` can be ahead of the version in the file.
 
-Projects created from `v1.0.0` or `v1.1.0` have no `.template-version`, because the file was added later. Such a project is on `v1.1.0` if its `package.json` lists `@ui-sdk/react`, and on `v1.0.0` otherwise.
+Projects created from `v1.0.0` have no `.template-version`, because the file was added in `v1.1.0`. Treat a missing file as `v1.0.0`.
 
 ## Release contents
 
