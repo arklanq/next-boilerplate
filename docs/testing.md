@@ -15,7 +15,7 @@ React Testing Library unmounts rendered components after every test by itself, b
 
 Put focused tests near the matching feature area. The [homepage unit test](../tests/unit/app/home-page.test.tsx) renders a component with the DOM. The [pagination tests](../tests/unit/utils/pagination/pagination-input.test.ts) show the no-DOM pattern.
 
-The [homepage browser test](../tests/e2e/home-page.spec.ts) uses Playwright in Chromium to check the production build, visible heading, and browser errors. Install the browser once with `bunx --bun playwright install chromium`, then run `bun run test:e2e`. [`playwright.config.ts`](../playwright.config.ts) builds and starts Next.js for the test.
+The [homepage browser test](../tests/e2e/home-page.spec.ts) uses Playwright in Chromium to check the production build, visible heading, and browser errors. Install the browser with `bunx --bun playwright install chromium`, and again after each Playwright update, then run `bun run test:e2e`. [`playwright.config.ts`](../playwright.config.ts) builds and starts Next.js for the test.
 
 The [font tests](../tests/e2e/fonts.spec.ts) check the actual rendered fonts through Chromium's font inspection API at desktop and phone widths. They cover every configured weight, Latin and Polish glyphs, and reject system-font substitution while external font requests are blocked.
 
