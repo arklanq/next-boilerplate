@@ -7,6 +7,7 @@ Use the existing modules as starting points. The homepage is only a placeholder.
 - [`src/app/`](../src/app/) contains the active App Router entry points and global styles. [`src/app/layout.tsx`](../src/app/layout.tsx) is the root layout currently used by Next.js.
   - [`src/components/layouts/root-layout/`](../src/components/layouts/root-layout/) offers a default layout with `next-themes`, `NuqsAdapter`, TanStack Query, toast notifications, and [`RootShell`](../src/components/shells/root-shell/root-shell.tsx).
 - [`src/config/`](../src/config/) contains font definitions, query client defaults, and toast options.
+- [`fonts.ts`](../src/config/fonts/fonts.ts) loads pinned Geist and Geist Mono variable WOFF2 files from [`public/fonts/`](../public/fonts/README.md) through `next/font/local`, keeping `--font-sans` and `--font-mono`. Builds and development do not fetch Google Fonts. The bundled files include Latin and Polish glyphs; their versions, source hashes and license are recorded beside them.
 - `import { cn } from "cn"` merges utility classes.
 - [`src/hooks/use-boolean/`](../src/hooks/use-boolean/) provides boolean state helpers.
 - [`src/ad-hocs/`](../src/ad-hocs/) contains component wrappers for default props and grouped components.

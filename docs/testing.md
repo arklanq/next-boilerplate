@@ -15,4 +15,6 @@ Put focused tests near the matching feature area. The [homepage unit test](../te
 
 The [homepage browser test](../tests/e2e/home-page.spec.ts) uses Playwright in Chromium to check the production build, visible heading, and browser errors. Install the browser once with `bunx --bun playwright install chromium`, then run `bun run test:e2e`. [`playwright.config.ts`](../playwright.config.ts) builds and starts Next.js for the test.
 
+The [font tests](../tests/e2e/fonts.spec.ts) check the actual rendered fonts through Chromium's font inspection API at desktop and phone widths. They cover every configured weight, Latin and Polish glyphs, and reject system-font substitution while external font requests are blocked.
+
 Run `bun run test` for the unit and browser tests. `bun run test:ci` also runs both and stops the unit tests at the first failure. Use `bun run test:unit`, `bun run test:watch` or `bun run test:e2e` to run a group separately. The other quality commands are listed in [README.md](../README.md).
