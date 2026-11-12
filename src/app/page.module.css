@@ -1,0 +1,31 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  min-block-size: 100svh;
+}
+
+.logo {
+  inline-size: 8rem;
+  block-size: 8rem;
+  color: #61dafb;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .logo {
+    animation: spin 5s linear infinite;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.title {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}

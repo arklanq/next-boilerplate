@@ -4,9 +4,27 @@
 import { GlobalRegistrator } from "@happy-dom/global-registrator";
 import { expect } from "bun:test";
 
+declare global {
+  var __UI_SDK_STRICT__: boolean | undefined;
+}
+
+// Bun imports a CSS module as an empty object, so `styles.logo` would be undefined; return the class name itself.
+Bun.plugin({
+  name: "css-modules",
+  setup(build) {
+    build.onLoad({ filter: /\.module\.css$/ }, () => ({
+      contents: "export default new Proxy({}, { get: (_, key) => (typeof key === 'string' ? key : undefined) });",
+      loader: "js"
+    }));
+  }
+});
+
 if (Bun.main.endsWith(".tsx")) {
   // Provides window, document, localStorage, ResizeObserver, scrolling, ...
   GlobalRegistrator.register();
+
+  // Turns ui-sdk development warnings, like a part missing a required state, into errors.
+  globalThis.__UI_SDK_STRICT__ = true;
 
   // Extends `expect` with @testing-library/jest-dom matchers (toBeInTheDocument, toHaveClass, ...).
   // Imported after registering because @testing-library/dom reads `document` on load.

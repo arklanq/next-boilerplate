@@ -7,9 +7,20 @@ Use the existing modules as starting points. The homepage is only a placeholder.
 - [`src/app/`](../src/app/) contains the active App Router entry points and global styles. [`src/app/layout.tsx`](../src/app/layout.tsx) is the root layout currently used by Next.js.
   - [`src/components/layouts/root-layout/`](../src/components/layouts/root-layout/) offers a default layout with `next-themes`, `NuqsAdapter`, TanStack Query, toast notifications, and [`RootShell`](../src/components/shells/root-shell/root-shell.tsx).
 - [`src/config/`](../src/config/) contains font definitions, query client defaults, and toast options.
-- `import { cn } from "cn"` merges utility classes.
+- [`fonts.ts`](../src/config/fonts/fonts.ts) loads pinned Geist and Geist Mono variable WOFF2 files from [`public/fonts/`](../public/fonts/README.md) through `next/font/local`, keeping `--font-sans` and `--font-mono`. Builds and development do not fetch Google Fonts. The bundled files include Latin and Polish glyphs; their versions, source hashes and license are recorded beside them.
+- UI components come from [ui-sdk](https://github.com/vercel-labs/ui). Import each from its own entry, such as `@ui-sdk/react/select`. [`globals.css`](../src/app/globals.css) imports `@ui-sdk/core/web.css` for their default look. Its colors follow the `.dark` class from `next-themes` through `color-scheme`. Theme it with `--ui-*` tokens, which also color the page.
 - [`src/hooks/use-boolean/`](../src/hooks/use-boolean/) provides boolean state helpers.
 - [`src/ad-hocs/`](../src/ad-hocs/) contains component wrappers for default props and grouped components.
+
+## Styles
+
+Styles are written in CSS Modules; the project has no Tailwind.
+
+- Each component has its own `.module.css` next to its `.tsx`, such as `root-shell/root-shell.tsx` and `root-shell/root-shell.module.css`. Class names are camelCase, and `clsx` joins them.
+- A component imports only its own module and the shared module, if one exists. A parent changes a child's look through props (`compact`) or a CSS variable, not by passing its own classes.
+- A loading skeleton lives in its own file in the component's folder, such as `odometer/odometer-skeleton.tsx`, with its own module.
+- Style a ui-sdk part by giving it a module class and targeting its state attributes, such as `.trigger[data-open]`.
+- [`globals.css`](../src/app/globals.css) holds only the layer order, the reset and element styles, the theme switch and `sr-only`. Its layers go from weakest to strongest: `ui-sdk` (`web.css`, with the reset in its `ui-sdk.reset` sublayer) and `ui` for classes shared by many components. `ui-sdk` must stay first: the library also injects its own `<style>` at the top of `<head>`, so a layer meant to sit under it would end up above it. Create the shared module, such as `src/components/ui.module.css`, when the first shared class is needed and wrap its rules in `@layer ui`. Component modules stay outside layers, so they override both whatever order the files load in.
 
 ## API and shared data
 

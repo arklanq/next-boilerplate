@@ -12,4 +12,3 @@ preload = ["./tests/unit/setup.ts"]
 printWidth = 120
 trailingComma = "none"
 experimentalTernaries = true
-sortTailwindcss = true

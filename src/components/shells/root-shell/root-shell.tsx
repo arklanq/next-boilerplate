@@ -1,11 +1,12 @@
 import type { PropsWithChildren } from "react";
+import styles from "./root-shell.module.css";
 
 type RootShellProps = PropsWithChildren;
 
 function RootShell(props: RootShellProps) {
   const { children } = props;
 
-  return <div className="flex min-h-screen w-full flex-col">{children}</div>;
+  return <div className={styles.shell}>{children}</div>;
 }
 
 export { RootShell, type RootShellProps };

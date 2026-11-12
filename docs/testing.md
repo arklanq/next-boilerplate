@@ -9,10 +9,14 @@ happy-dom is chosen over jsdom on purpose: it ships `matchMedia`, `<dialog>`, `I
 
 The unit scripts pass `--parallel`, which runs files in worker processes and implies `--isolate`, so every file gets a fresh global and the setup decides per file whether to register the DOM. Use the scripts, or add `--parallel` or `--isolate` yourself: a plain `bun test` over several files runs the setup once, so every file gets the first file's environment and the no-DOM tests fail.
 
+The setup sets `__UI_SDK_STRICT__`, so ui-sdk development warnings fail the test. It also makes every CSS module return each class name as written, so `styles.logo` is `"logo"` and tests can assert classes with `toHaveClass("logo")`. The [ui-sdk test](../tests/unit/components/ui-sdk.test.tsx) shows how to render a component and wrap an interaction in `act`.
+
 React Testing Library unmounts rendered components after every test by itself, because Bun exposes `afterEach` globally. Do not add `afterEach(cleanup)` to test files.
 
 Put focused tests near the matching feature area. The [homepage unit test](../tests/unit/app/home-page.test.tsx) renders a component with the DOM. The [pagination tests](../tests/unit/utils/pagination/pagination-input.test.ts) show the no-DOM pattern.
 
 The [homepage browser test](../tests/e2e/home-page.spec.ts) uses Playwright in Chromium to check the production build, visible heading, and browser errors. Install the browser once with `bunx --bun playwright install chromium`, then run `bun run test:e2e`. [`playwright.config.ts`](../playwright.config.ts) builds and starts Next.js for the test.
+
+The [font tests](../tests/e2e/fonts.spec.ts) check the actual rendered fonts through Chromium's font inspection API at desktop and phone widths. They cover every configured weight, Latin and Polish glyphs, and reject system-font substitution while external font requests are blocked.
 
 Run `bun run test` for the unit and browser tests. `bun run test:ci` also runs both and stops the unit tests at the first failure. Use `bun run test:unit`, `bun run test:watch` or `bun run test:e2e` to run a group separately. The other quality commands are listed in [README.md](../README.md).
