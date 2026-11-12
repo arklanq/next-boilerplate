@@ -25,7 +25,7 @@ Open <http://localhost:3000>. Replace the placeholder in [`src/app/page.tsx`](sr
 
 ## Check
 
-Type checking (`bun check`), formatting (`bun fmt`) and unit tests (`bun test`) use Bun's built-in tools. Install Chromium once with `bunx --bun playwright install chromium` before running the tests.
+Type checking (`bun check`), formatting (`bun fmt`) and unit tests (`bun test`) use Bun's built-in tools. Install Chromium with `bunx --bun playwright install chromium` before running the tests, and again after each Playwright update.
 
 ```bash
 bun run type:check
