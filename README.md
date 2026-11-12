@@ -4,7 +4,8 @@ A small Next.js App Router starter for building a new application. It ships reus
 
 ## Included
 
-- Next.js 16, React 19, TypeScript, Tailwind CSS 4, and React Compiler.
+- Next.js 16, React 19, TypeScript, CSS Modules, and React Compiler.
+- [ui-sdk](https://github.com/vercel-labs/ui) accessible UI components with its default `web.css` look.
 - A root layout with TanStack Query, URL state, toast notifications, and a shell.
 - Composable API middleware, structured HTTP exceptions, and response types.
 - Pagination, text truncation, shared hooks, and unit and browser test setup.

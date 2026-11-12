@@ -1,3 +1,3 @@
 # App Router
 
-Routes, layouts, API route handlers and `globals.css`. Keep files thin: pages compose components, and API routes are built with `ApiMiddlewareBuilder` from `src/server/api/`.
+Routes, layouts, API route handlers and `globals.css`. A page keeps its styles in a CSS module next to it (`page.module.css`); `globals.css` holds only the layer order, reset and theme switch. Keep files thin: pages compose components, and API routes are built with `ApiMiddlewareBuilder` from `src/server/api/`.

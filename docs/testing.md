@@ -9,6 +9,8 @@ happy-dom is chosen over jsdom on purpose: it ships `matchMedia`, `<dialog>`, `I
 
 The unit scripts pass `--parallel`, which runs files in worker processes and implies `--isolate`, so every file gets a fresh global and the setup decides per file whether to register the DOM. Use the scripts, or add `--parallel` or `--isolate` yourself: a plain `bun test` over several files runs the setup once, so every file gets the first file's environment and the no-DOM tests fail.
 
+The setup sets `__UI_SDK_STRICT__`, so ui-sdk development warnings fail the test. It also makes every CSS module return each class name as written, so `styles.logo` is `"logo"` and tests can assert classes with `toHaveClass("logo")`. The [ui-sdk test](../tests/unit/components/ui-sdk.test.tsx) shows how to render a component and wrap an interaction in `act`.
+
 React Testing Library unmounts rendered components after every test by itself, because Bun exposes `afterEach` globally. Do not add `afterEach(cleanup)` to test files.
 
 Put focused tests near the matching feature area. The [homepage unit test](../tests/unit/app/home-page.test.tsx) renders a component with the DOM. The [pagination tests](../tests/unit/utils/pagination/pagination-input.test.ts) show the no-DOM pattern.

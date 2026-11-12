@@ -1,4 +1,5 @@
 import "server-only";
+import { clsx } from "clsx";
 import { ThemeProvider } from "next-themes";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import type { ReactNode } from "react";
@@ -12,7 +13,7 @@ export async function RootLayout(props: RootLayoutProps) {
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${sansFont.variable} ${monoFont.variable} antialiased`}>
+      <body className={clsx(sansFont.variable, monoFont.variable)}>
         <ThemeProvider attribute="class" storageKey="color-theme" enableColorScheme={false}>
           <NuqsAdapter>
             <RootProviders>{children}</RootProviders>

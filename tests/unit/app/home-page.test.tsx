@@ -7,7 +7,7 @@ describe("homepage", () => {
     const { container } = render(<Home />);
 
     expect(screen.getByRole("heading", { name: "Hello world" })).toBeInTheDocument();
-    expect(container.querySelector("svg")).toHaveClass("motion-safe:animate-spin");
+    expect(container.querySelector("svg")).toHaveClass("logo");
     expect(container.querySelectorAll("main > *")).toHaveLength(2);
   });
 });

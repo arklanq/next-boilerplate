@@ -1,3 +1,3 @@
 # Components
 
-React components by atomic design: `atoms/`, `molecules/`, `organisms/`, then `layouts/` and `shells/` for page structure. One kebab-case folder per component (`root-shell/root-shell.tsx`). shadcn adds primitives to `atoms/` and blocks to `organisms/` (`components.json`).
+React components by atomic design: `atoms/`, `molecules/`, `organisms/`, then `layouts/` and `shells/` for page structure. One kebab-case folder per component, holding its CSS module and a separate loading skeleton if it has one (`root-shell/root-shell.tsx`, `root-shell/root-shell.module.css`). See "Styles" in `docs/reuse.md`.
