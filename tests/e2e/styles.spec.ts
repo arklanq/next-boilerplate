@@ -9,9 +9,9 @@ test("the reset stays under ui-sdk's look, and a component module overrides both
     injected.textContent = "@layer ui-sdk { :where([data-slot][hidden]) { display: none; } }";
     document.head.prepend(injected);
 
-    const module = document.createElement("style");
-    module.textContent = ".moduleButton { padding-inline: 40px; }";
-    document.head.append(module);
+    const moduleStyle = document.createElement("style");
+    moduleStyle.textContent = ".moduleButton { padding-inline: 40px; }";
+    document.head.append(moduleStyle);
 
     const plain = document.createElement("button");
     plain.dataset["slot"] = "button";
