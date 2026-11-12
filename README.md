@@ -34,4 +34,4 @@ bun run test
 bun run build
 ```
 
-See [the reuse guide](docs/reuse.md) for existing modules and directory roles, [testing](docs/testing.md) for test conventions, and [AGENTS.md](AGENTS.md) for agent instructions.
+See [the reuse guide](docs/reuse.md) for existing modules and directory roles, [testing](docs/testing.md) for test conventions, [upgrade hints](docs/upgrade-hints.md) for updating a project created from this template, and [AGENTS.md](AGENTS.md) for agent instructions.

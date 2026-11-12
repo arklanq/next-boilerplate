@@ -4,6 +4,7 @@ Read [README.md](README.md) for the project's purpose and commands. Open only th
 
 - [docs/reuse.md](docs/reuse.md) locates reusable modules and explains the directory structure.
 - [docs/testing.md](docs/testing.md) describes the current test setup and where new tests belong.
+- [docs/upgrade-hints.md](docs/upgrade-hints.md) describes the upgrade hints attached to each release, and how to write and apply them.
 
 Before adding a helper, component, or folder, inspect the existing equivalent. Keep changes scoped to the requested feature and update the relevant guide if its documented behavior changes.
 
