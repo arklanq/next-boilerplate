@@ -14,7 +14,7 @@ The starter does not include a database, authentication, or an MCP server.
 
 ## Run
 
-Bun 1.4.4 or newer is the only runtime: it installs packages and runs the scripts, the tools and the production server. Update with `bun upgrade`.
+Bun 1.4.5 or newer is the only runtime: it installs packages and runs the scripts, the tools and the production server. Update with `bun upgrade`.
 
 ```bash
 bun ci
